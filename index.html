@@ -100,7 +100,6 @@
   .btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
   .btn.primary:hover{background:var(--green);border-color:var(--green)}
 
-
   /* ───── sections ───── */
   section{padding:64px 0;border-bottom:1px solid var(--line)}
   .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:34px}
@@ -130,6 +129,7 @@
     padding:20px 22px;margin-bottom:14px;
     transition:border-color .15s, box-shadow .15s;
   }
+  .pub.expandable{cursor:pointer}
   .pub:hover{border-color:#BBD2C3;box-shadow:0 4px 18px rgba(14,123,83,.07)}
   .pub-top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px}
   .venue{
@@ -139,13 +139,21 @@
   }
   .venue.review{background:#F2F2EC;color:#6B6F5E;border-color:#E0E2D6}
   .tag{font-family:'Spline Sans Mono',monospace;font-size:.66rem;color:#8AA094}
-  .pub h3{font-size:1.02rem;font-weight:600;line-height:1.45;margin-bottom:5px}
+  .pub h3{font-size:1.02rem;font-weight:600;line-height:1.45;margin-bottom:5px;display:flex;align-items:flex-start;gap:8px}
   .pub h3 a{color:var(--ink)}
   .pub h3 a:hover{color:var(--green)}
+  .chev{flex:none;margin-left:auto;color:#9AAFA2;font-size:.8rem;line-height:1.6;transition:transform .25s ease;transform-origin:center}
+  .pub.open .chev{transform:rotate(180deg)}
   .authors{font-size:.86rem;color:var(--ink-soft);margin-bottom:7px}
   .authors b{color:var(--ink);font-weight:600}
-  .pub p.desc{font-size:.9rem;color:var(--ink-soft)}
+  .pub p.desc{font-size:.9rem;color:var(--ink-soft);margin:0}
   .pub-links{margin-top:9px;display:flex;gap:14px;font-size:.8rem;font-weight:600}
+  .pub-fold{
+    overflow:hidden;max-height:0;opacity:0;
+    transition:max-height .3s ease, opacity .25s ease, margin-top .3s ease;
+    margin-top:0;
+  }
+  .pub.open .pub-fold{max-height:900px;opacity:1;margin-top:7px}
   .hidden{display:none}
 
   /* awards / service grid */
@@ -206,11 +214,7 @@
       <h1>Controlled data,<br><span class="hl">traceable</span> model behavior.</h1>
       <p class="hero-role">Ph.D. in vision-language models & agent, POSTECH, advised by <a href="https://ami.kaist.ac.kr/members/tae-hyun-oh" target="_blank" rel="noopener">Prof. Tae-Hyun Oh</a> · prev. Research Intern at Huawei Noah's Ark Lab, London</p>
       <p class="hero-bio">
-        I build <b>controllable multimodal data</b> so that model behavior becomes understandable and traceable —
-        from <b>model improvement</b> (TRAP Isolation @ submitted, SYNAuG @ PRL, TextManiA @ ICCV)
-        to <b>model evaluation</b> (TRAP @ submitted, VLM Eye Exam @ TMLR, BEAF @ ECCV).
-        I am also interested in deploying models as <b>autonomous agents</b>
-        (RetouchLLM @ submitted, GUI agents @ submitted, model discovery @ NeurIPS).
+        I build <b>controllable multimodal data</b> so that model behavior becomes understandable and traceable — from model improvement to model evaluation. I am also interested in deploying models as autonomous agents.
       </p>
     </div>
   </div>
@@ -259,19 +263,19 @@
     <div class="filters" role="group" aria-label="Filter publications">
       <button class="on" data-f="sel">SELECTED</button>
       <button data-f="all">ALL</button>
-      <button data-f="first">FIRST AUTHOR</button>
-      <button data-f="agent">AGENT</button>
-      <button data-f="eval">EVALUATION</button>
-      <button data-f="data">SYNTHETIC DATA</button>
     </div>
 
-    <article class="pub" data-c="sel first agent eval data">
+    <article class="pub expandable" data-c="sel first agent eval data">
       <div class="pub-top"><span class="venue review">UNDER REVIEW</span><span class="tag">privacy / agent</span></div>
-      <h3><a href="https://arxiv.org/abs/2606.18996" target="_blank" rel="noopener">TRAP: Benchmark for Task-completion and Resistance to Active Privacy-extraction</a></h3>
-      <p class="authors"><b>Moon Ye-Bin</b>, Nam Hyeon-Woo, Baek Seong-Eun, Yejin Yeo, Tae-Hyun Oh</p>
-      <p class="desc">The first benchmark for active privacy extraction in agents, where all 22 tested models leak heavily. We prove that soft-constraint defenses like prompting or alignment can never achieve both task success and zero leakage at once, since it is a fundamental property of softmax-based models. This motivates a system-level defense: <i>private field isolation</i> hashes private values before they reach the model, so the model never sees them, blocking leakage (90%+ privacy) while keeping task accuracy near baseline.</p>
-      <div class="pub-links"><a href="https://arxiv.org/abs/2606.18996" target="_blank" rel="noopener">arXiv</a></div>
-    </article>
+        <h3><a href="https://arxiv.org/abs/2606.18996" target="_blank" rel="noopener">TRAP: Benchmark for Task-completion and Resistance to Active Privacy-extraction</a><span class="chev">▾</span></h3>
+        <p class="authors"><b>Moon Ye-Bin</b>, Nam Hyeon-Woo, Baek Seong-Eun, Yejin Yeo, Tae-Hyun Oh</p>
+
+        <div class="pub-fold">
+          <p class="desc">The first benchmark for active privacy extraction in agents, where all 22 tested models leak heavily. We prove that soft-constraint defenses like prompting or alignment can never achieve both task success and zero leakage at once, since it is a fundamental property of softmax-based models. This motivates a system-level defense: <i>private field isolation</i> hashes private values before they reach the model, so the model never sees them, blocking leakage (90%+ privacy) while keeping task accuracy near baseline.</p>
+        </div>
+        <div class="pub-links"><a href="https://arxiv.org/abs/2606.18996" target="_blank" rel="noopener">arXiv</a></div>
+
+            </article>
 
     <article class="pub" data-c="sel agent">
       <div class="pub-top"><span class="venue review">UNDER REVIEW</span><span class="tag">GUI agent</span></div>
@@ -279,109 +283,161 @@
       <p class="authors">Chengxin Liu, <b>Moon Ye-Bin</b>, Tae-Hyun Oh<br>Work done with Samsung DS</p>
     </article>
 
-    <article class="pub" data-c="all-extra">
+    <article class="pub expandable" data-c="all-extra">
       <div class="pub-top"><span class="venue review">UNDER REVIEW</span><span class="tag">video diffusion</span></div>
-      <h3><a href="https://arxiv.org/abs/2603.14320" target="_blank" rel="noopener">Early Failure Detection and Intervention in Video Diffusion Models</a></h3>
-      <p class="authors">Kwon Byung-Ki, Sohwi Lim, Nam Hyeon-Woo, <b>Moon Ye-Bin</b>, Tae-Hyun Oh</p>
-      <p class="desc">Text-to-video diffusion often fails silently at inference, making trial-and-error regeneration costly. A Real-time Inspection module turns latents into intermediate video previews so alignment scorers can spot failures in just 39.2ms, and intervention fires only when failure is predicted. The pipeline first reuses a well-aligned single-frame preview as a semantic anchor, then, if needed, calls a VLM to diagnose the faulty preview and refine the prompt, yielding up to 2.64x less time overhead than post-hoc regeneration.</p>
-      <div class="pub-links"><a href="https://arxiv.org/abs/2603.14320" target="_blank" rel="noopener">arXiv</a></div>
-    </article>
+        <h3><a href="https://arxiv.org/abs/2603.14320" target="_blank" rel="noopener">Early Failure Detection and Intervention in Video Diffusion Models</a><span class="chev">▾</span></h3>
+        <p class="authors">Kwon Byung-Ki, Sohwi Lim, Nam Hyeon-Woo, <b>Moon Ye-Bin</b>, Tae-Hyun Oh</p>
 
-    <article class="pub" data-c="sel first agent">
+        <div class="pub-fold">
+          <p class="desc">Text-to-video diffusion often fails silently at inference, making trial-and-error regeneration costly. A Real-time Inspection module turns latents into intermediate video previews so alignment scorers can spot failures in just 39.2ms, and intervention fires only when failure is predicted. The pipeline first reuses a well-aligned single-frame preview as a semantic anchor, then, if needed, calls a VLM to diagnose the faulty preview and refine the prompt, yielding up to 2.64x less time overhead than post-hoc regeneration.</p>
+        </div>
+        <div class="pub-links"><a href="https://arxiv.org/abs/2603.14320" target="_blank" rel="noopener">arXiv</a></div>
+
+            </article>
+
+    <article class="pub expandable" data-c="sel first agent">
       <div class="pub-top"><span class="venue review">UNDER REVIEW</span><span class="tag">retouching / VLM / agent</span></div>
-      <h3><a href="https://arxiv.org/abs/2510.08054" target="_blank" rel="noopener">RetouchLLM: Training-free Code-based Image Retouching with Vision Language Models</a></h3>
-      <p class="authors"><b>Moon Ye-Bin</b>, Roy Miles, Tae-Hyun Oh, Ismail Elezi, Jiankang Deng<br>Work done with Huawei Noah's Ark Lab</p>
-      <p class="desc">RetouchLLM is an iterative retouching framework guided by a style-guided selection score that converges toward a target style without any training data. Its white-box, code-based design brings transparency and reproducibility while operating directly on high-resolution images, and by leveraging an LLM and VLM it supports natural-language instructions for personalized retouching aligned with user intent.</p>
-      <div class="pub-links"><a href="https://arxiv.org/abs/2510.08054" target="_blank" rel="noopener">arXiv</a></div>
-    </article>
+        <h3><a href="https://arxiv.org/abs/2510.08054" target="_blank" rel="noopener">RetouchLLM: Training-free Code-based Image Retouching with Vision Language Models</a><span class="chev">▾</span></h3>
+        <p class="authors"><b>Moon Ye-Bin</b>, Roy Miles, Tae-Hyun Oh, Ismail Elezi, Jiankang Deng<br>Work done with Huawei Noah's Ark Lab</p>
 
-    <article class="pub" data-c="sel eval">
+        <div class="pub-fold">
+          <p class="desc">RetouchLLM is an iterative retouching framework guided by a style-guided selection score that converges toward a target style without any training data. Its white-box, code-based design brings transparency and reproducibility while operating directly on high-resolution images, and by leveraging an LLM and VLM it supports natural-language instructions for personalized retouching aligned with user intent.</p>
+        </div>
+        <div class="pub-links"><a href="https://arxiv.org/abs/2510.08054" target="_blank" rel="noopener">arXiv</a></div>
+
+            </article>
+
+    <article class="pub expandable" data-c="sel eval">
       <div class="pub-top"><span class="venue">ICML 2026</span><span class="tag">MLLM / rankability</span></div>
-      <h3><a href="https://openreview.net/pdf?id=RsXgArgxC4" target="_blank" rel="noopener">Zero-shot Rankability: Revealing Latent Ordinal Structure in Multimodal Large Language Models via Language</a></h3>
-      <p class="authors">Nam Hyeon-Woo, <b>Moon Ye-Bin</b>, Sohwi Lim, Kwon Byung-Ki, Tae-Hyun Oh</p>
-      <p class="desc">MLLM embeddings (e.g., Qwen-VL) recover 90% of the linear-probing upper bound for ordinal ranking, far above CLIP's 61%, thanks to attribute-conditioned embeddings and a reduced modality gap. The effect generalizes even to speaker-age ranking in audio.</p>
-      <div class="pub-links"><a href="https://openreview.net/pdf?id=RsXgArgxC4" target="_blank" rel="noopener">Paper</a></div>
-    </article>
+        <h3><a href="https://openreview.net/pdf?id=RsXgArgxC4" target="_blank" rel="noopener">Zero-shot Rankability: Revealing Latent Ordinal Structure in Multimodal Large Language Models via Language</a><span class="chev">▾</span></h3>
+        <p class="authors">Nam Hyeon-Woo, <b>Moon Ye-Bin</b>, Sohwi Lim, Kwon Byung-Ki, Tae-Hyun Oh</p>
 
-    <article class="pub" data-c="eval">
+        <div class="pub-fold">
+          <p class="desc">MLLM embeddings (e.g., Qwen-VL) recover 90% of the linear-probing upper bound for ordinal ranking, far above CLIP's 61%, thanks to attribute-conditioned embeddings and a reduced modality gap. The effect generalizes even to speaker-age ranking in audio.</p>
+        </div>
+        <div class="pub-links"><a href="https://openreview.net/pdf?id=RsXgArgxC4" target="_blank" rel="noopener">Paper</a></div>
+
+            </article>
+
+    <article class="pub expandable" data-c="eval">
       <div class="pub-top"><span class="venue">WACV 2026</span><span class="tag">video retrieval / VLM</span></div>
-      <h3><a href="https://openaccess.thecvf.com/content/WACV2026/papers/Bang_Beyond_the_Highlights_Video_Retrieval_with_Salient_and_Surrounding_Contexts_WACV_2026_paper.pdf" target="_blank" rel="noopener">Beyond the Highlights: Video Retrieval with Salient and Surrounding Contexts</a></h3>
-      <p class="authors">Jaehun Bang, <b>Moon Ye-Bin</b>, Kyungdon Joo, Tae-Hyun Oh</p>
-      <p class="desc">Video retrieval models do well on salient content but drop sharply on surrounding-context and temporally complex queries, since video-level representations average out localized details. Our <i>SS Datasets</i> enable fine-grained spatio-temporal evaluation and training for context-rich, temporally localized supervision.</p>
-      <div class="pub-links"><a href="https://openaccess.thecvf.com/content/WACV2026/papers/Bang_Beyond_the_Highlights_Video_Retrieval_with_Salient_and_Surrounding_Contexts_WACV_2026_paper.pdf" target="_blank" rel="noopener">Paper</a></div>
-    </article>
+        <h3><a href="https://openaccess.thecvf.com/content/WACV2026/papers/Bang_Beyond_the_Highlights_Video_Retrieval_with_Salient_and_Surrounding_Contexts_WACV_2026_paper.pdf" target="_blank" rel="noopener">Beyond the Highlights: Video Retrieval with Salient and Surrounding Contexts</a><span class="chev">▾</span></h3>
+        <p class="authors">Jaehun Bang, <b>Moon Ye-Bin</b>, Kyungdon Joo, Tae-Hyun Oh</p>
 
-    <article class="pub" data-c="all-extra">
+        <div class="pub-fold">
+          <p class="desc">Video retrieval models do well on salient content but drop sharply on surrounding-context and temporally complex queries, since video-level representations average out localized details. Our <i>SS Datasets</i> enable fine-grained spatio-temporal evaluation and training for context-rich, temporally localized supervision.</p>
+        </div>
+        <div class="pub-links"><a href="https://openaccess.thecvf.com/content/WACV2026/papers/Bang_Beyond_the_Highlights_Video_Retrieval_with_Salient_and_Surrounding_Contexts_WACV_2026_paper.pdf" target="_blank" rel="noopener">Paper</a></div>
+
+            </article>
+
+    <article class="pub expandable" data-c="all-extra">
       <div class="pub-top"><span class="venue">WACV 2026</span><span class="tag">image retrieval</span></div>
-      <h3><a href="https://wons20k.github.io/PatchwiseRetrieval/" target="_blank" rel="noopener">Patch-wise Retrieval: A Bag of Practical Techniques for Instance-level Matching</a></h3>
-      <p class="authors">Wonseok Choi, Sohwi Lim, Nam Hyeon-Woo, <b>Moon Ye-Bin</b>, et al., Tae-Hyun Oh<br>Work done with Samsung Research</p>
-      <p class="desc">Decomposing images into patches lets pre-trained global-feature models do localized instance retrieval with surprisingly strong results and no task-specific fine-tuning. Product Quantization keeps patch-level indexing scalable, and <i>LocScore</i> measures how precisely the retrieved region aligns with the target object.</p>
-      <div class="pub-links"><a href="https://wons20k.github.io/PatchwiseRetrieval/" target="_blank" rel="noopener">Project</a><a href="https://openaccess.thecvf.com/content/WACV2026/papers/Choi_Patch-wise_Retrieval_A_Bag_of_Practical_Techniques_for_Instance-level_Matching_WACV_2026_paper.pdf" target="_blank" rel="noopener">Paper</a></div>
-    </article>
+        <h3><a href="https://wons20k.github.io/PatchwiseRetrieval/" target="_blank" rel="noopener">Patch-wise Retrieval: A Bag of Practical Techniques for Instance-level Matching</a><span class="chev">▾</span></h3>
+        <p class="authors">Wonseok Choi, Sohwi Lim, Nam Hyeon-Woo, <b>Moon Ye-Bin</b>, et al., Tae-Hyun Oh<br>Work done with Samsung Research</p>
 
-    <article class="pub" data-c="sel agent">
+        <div class="pub-fold">
+          <p class="desc">Decomposing images into patches lets pre-trained global-feature models do localized instance retrieval with surprisingly strong results and no task-specific fine-tuning. Product Quantization keeps patch-level indexing scalable, and <i>LocScore</i> measures how precisely the retrieved region aligns with the target object.</p>
+        </div>
+        <div class="pub-links"><a href="https://wons20k.github.io/PatchwiseRetrieval/" target="_blank" rel="noopener">Project</a><a href="https://openaccess.thecvf.com/content/WACV2026/papers/Choi_Patch-wise_Retrieval_A_Bag_of_Practical_Techniques_for_Instance-level_Matching_WACV_2026_paper.pdf" target="_blank" rel="noopener">Paper</a></div>
+
+            </article>
+
+    <article class="pub expandable" data-c="sel agent">
       <div class="pub-top"><span class="venue">NeurIPS 2025</span><span class="tag">model discovery / agent</span></div>
-      <h3><a href="https://mok0102.github.io/model-discovery/" target="_blank" rel="noopener">Automated Model Discovery via Multi-modal & Multi-step Pipeline</a></h3>
-      <p class="authors">Lee Jung-Mok, Nam Hyeon-Woo, <b>Moon Ye-Bin</b>, Junhyun Nam, Tae-Hyun Oh<br>Work done with Samsung SAIT</p>
-      <p class="desc">Interpreting time-series data as visual graphs with VLMs yields higher model discovery accuracy than interpreting it as text with LLMs. By leveraging VLM-based agents, the system visualizes and analyzes the given time-series data to propose model candidates, then iteratively evaluates and refines them to identify the most suitable model.</p>
-      <div class="pub-links"><a href="https://mok0102.github.io/model-discovery/" target="_blank" rel="noopener">Project</a><a href="https://openreview.net/pdf?id=qGFvTIMS3W" target="_blank" rel="noopener">Paper</a></div>
-    </article>
+        <h3><a href="https://mok0102.github.io/model-discovery/" target="_blank" rel="noopener">Automated Model Discovery via Multi-modal & Multi-step Pipeline</a><span class="chev">▾</span></h3>
+        <p class="authors">Lee Jung-Mok, Nam Hyeon-Woo, <b>Moon Ye-Bin</b>, Junhyun Nam, Tae-Hyun Oh<br>Work done with Samsung SAIT</p>
 
-    <article class="pub" data-c="sel eval data">
+        <div class="pub-fold">
+          <p class="desc">Interpreting time-series data as visual graphs with VLMs yields higher model discovery accuracy than interpreting it as text with LLMs. By leveraging VLM-based agents, the system visualizes and analyzes the given time-series data to propose model candidates, then iteratively evaluates and refines them to identify the most suitable model.</p>
+        </div>
+        <div class="pub-links"><a href="https://mok0102.github.io/model-discovery/" target="_blank" rel="noopener">Project</a><a href="https://openreview.net/pdf?id=qGFvTIMS3W" target="_blank" rel="noopener">Paper</a></div>
+
+            </article>
+
+    <article class="pub expandable" data-c="sel eval data">
       <div class="pub-top"><span class="venue">TMLR 2025</span><span class="tag">evaluation / VLM</span></div>
-      <h3><a href="https://openreview.net/pdf?id=CgWkVb2lHB" target="_blank" rel="noopener">VLM's Eye Examination: Instruct and Inspect Visual Competency of Vision Language Models</a></h3>
-      <p class="authors">Nam Hyeon-Woo, <b>Moon Ye-Bin</b>, Wonseok Choi, Lee Hyun, Tae-Hyun Oh</p>
-      <p class="desc">VLM's Eye Examination probes how a VLM perceives images, from primitive color and shape to semantic levels. The color exam shows VLMs are sensitive to the red spectrum, and the LLM component shapes both shape sensitivity and patch-wise semantic discrimination.</p>
-      <div class="pub-links"><a href="https://github.com/kaist-ami/eye-examination" target="_blank" rel="noopener">Code</a><a href="https://openreview.net/pdf?id=CgWkVb2lHB" target="_blank" rel="noopener">Paper</a></div>
-    </article>
+        <h3><a href="https://openreview.net/pdf?id=CgWkVb2lHB" target="_blank" rel="noopener">VLM's Eye Examination: Instruct and Inspect Visual Competency of Vision Language Models</a><span class="chev">▾</span></h3>
+        <p class="authors">Nam Hyeon-Woo, <b>Moon Ye-Bin</b>, Wonseok Choi, Lee Hyun, Tae-Hyun Oh</p>
 
-    <article class="pub" data-c="sel first data">
+        <div class="pub-fold">
+          <p class="desc">VLM's Eye Examination probes how a VLM perceives images, from primitive color and shape to semantic levels. The color exam shows VLMs are sensitive to the red spectrum, and the LLM component shapes both shape sensitivity and patch-wise semantic discrimination.</p>
+        </div>
+        <div class="pub-links"><a href="https://github.com/kaist-ami/eye-examination" target="_blank" rel="noopener">Code</a><a href="https://openreview.net/pdf?id=CgWkVb2lHB" target="_blank" rel="noopener">Paper</a></div>
+
+            </article>
+
+    <article class="pub expandable" data-c="sel first data">
       <div class="pub-top"><span class="venue">PR LETTERS 2025</span><span class="tag">synthetic data / imbalance</span></div>
-      <h3><a href="https://arxiv.org/abs/2308.00994" target="_blank" rel="noopener">SYNAuG: Exploiting Synthetic Data for Data Imbalance Problems</a></h3>
-      <p class="authors"><b>Moon Ye-Bin†</b>, Nam Hyeon-Woo†, Wonseok Choi, Nayeong Kim, Suha Kwak, Tae-Hyun Oh</p>
-      <p class="desc">SYNAuG augments imbalanced training data with synthetic images to balance the distribution. Despite the synthetic-to-real domain gap, this helps when at least 5 to 10 real samples are available. In long-tail recognition, fairness, and spurious correlation, it beats algorithmic approaches trained only on real data, showing the value of controlling imbalance from the data side.</p>
-      <div class="pub-links"><a href="https://www.sciencedirect.com/science/article/pii/S0167865525001461" target="_blank" rel="noopener">Paper</a><a href="https://arxiv.org/abs/2308.00994" target="_blank" rel="noopener">arXiv</a></div>
-    </article>
+        <h3><a href="https://arxiv.org/abs/2308.00994" target="_blank" rel="noopener">SYNAuG: Exploiting Synthetic Data for Data Imbalance Problems</a><span class="chev">▾</span></h3>
+        <p class="authors"><b>Moon Ye-Bin†</b>, Nam Hyeon-Woo†, Wonseok Choi, Nayeong Kim, Suha Kwak, Tae-Hyun Oh</p>
 
-    <article class="pub" data-c="sel first eval data">
+        <div class="pub-fold">
+          <p class="desc">SYNAuG augments imbalanced training data with synthetic images to balance the distribution. Despite the synthetic-to-real domain gap, this helps when at least 5 to 10 real samples are available. In long-tail recognition, fairness, and spurious correlation, it beats algorithmic approaches trained only on real data, showing the value of controlling imbalance from the data side.</p>
+        </div>
+        <div class="pub-links"><a href="https://www.sciencedirect.com/science/article/pii/S0167865525001461" target="_blank" rel="noopener">Paper</a><a href="https://arxiv.org/abs/2308.00994" target="_blank" rel="noopener">arXiv</a></div>
+
+            </article>
+
+    <article class="pub expandable" data-c="sel first eval data">
       <div class="pub-top"><span class="venue">ECCV 2024</span><span class="tag">hallucination / evaluation</span></div>
-      <h3><a href="https://beafbench.github.io/" target="_blank" rel="noopener">BEAF: Observing BEfore-AFter Changes to Evaluate Hallucination in Vision-language Models</a></h3>
-      <p class="authors"><b>Moon Ye-Bin†</b>, Nam Hyeon-Woo†, Wonseok Choi, Tae-Hyun Oh</p>
-      <p class="desc">BEAF is a benchmark with dataset and metrics for evaluating hallucination in large vision-language models. It manipulates an image by removing an object and tracks how the model's answer to the same question changes. With these change-aware metrics, we find that even high-accuracy models hallucinate heavily, driven mainly by the model's "Yes" bias.</p>
-      <div class="pub-links"><a href="https://beafbench.github.io/" target="_blank" rel="noopener">Project</a><a href="https://www.ecva.net/papers/eccv_2024/papers_ECCV/papers/01750.pdf" target="_blank" rel="noopener">Paper</a></div>
-    </article>
+        <h3><a href="https://beafbench.github.io/" target="_blank" rel="noopener">BEAF: Observing BEfore-AFter Changes to Evaluate Hallucination in Vision-language Models</a><span class="chev">▾</span></h3>
+        <p class="authors"><b>Moon Ye-Bin†</b>, Nam Hyeon-Woo†, Wonseok Choi, Tae-Hyun Oh</p>
 
-    <article class="pub" data-c="first">
+        <div class="pub-fold">
+          <p class="desc">BEAF is a benchmark with dataset and metrics for evaluating hallucination in large vision-language models. It manipulates an image by removing an object and tracks how the model's answer to the same question changes. With these change-aware metrics, we find that even high-accuracy models hallucinate heavily, driven mainly by the model's "Yes" bias.</p>
+        </div>
+        <div class="pub-links"><a href="https://beafbench.github.io/" target="_blank" rel="noopener">Project</a><a href="https://www.ecva.net/papers/eccv_2024/papers_ECCV/papers/01750.pdf" target="_blank" rel="noopener">Paper</a></div>
+
+            </article>
+
+    <article class="pub expandable" data-c="first">
       <div class="pub-top"><span class="venue">PATTERN RECOGNITION 2024</span><span class="tag">low-shot segmentation</span></div>
-      <h3><a href="https://arxiv.org/abs/2302.09765" target="_blank" rel="noopener">ENInst: Enhancing Weakly-supervised Low-shot Instance Segmentation</a></h3>
-      <p class="authors"><b>Moon Ye-Bin</b>, Dongmin Choi, Yongjin Kwon, Junsik Kim, Tae-Hyun Oh<br>Work done with ETRI</p>
-      <p class="desc">From performance bottleneck analyses, ENInst targets two sub-tasks: MRF-based instance-wise refinement to improve pixel localization, and a novel classifier composition that parameterizes classifiers with base classifiers and Gaussian random vectors to improve classification accuracy. IPIU 2022 Best Paper.</p>
-      <div class="pub-links"><a href="https://www.sciencedirect.com/science/article/abs/pii/S0031320323005861" target="_blank" rel="noopener">Paper</a><a href="https://arxiv.org/abs/2302.09765" target="_blank" rel="noopener">arXiv</a></div>
-    </article>
+        <h3><a href="https://arxiv.org/abs/2302.09765" target="_blank" rel="noopener">ENInst: Enhancing Weakly-supervised Low-shot Instance Segmentation</a><span class="chev">▾</span></h3>
+        <p class="authors"><b>Moon Ye-Bin</b>, Dongmin Choi, Yongjin Kwon, Junsik Kim, Tae-Hyun Oh<br>Work done with ETRI</p>
 
-    <article class="pub" data-c="sel first data">
+        <div class="pub-fold">
+          <p class="desc">From performance bottleneck analyses, ENInst targets two sub-tasks: MRF-based instance-wise refinement to improve pixel localization, and a novel classifier composition that parameterizes classifiers with base classifiers and Gaussian random vectors to improve classification accuracy. IPIU 2022 Best Paper.</p>
+        </div>
+        <div class="pub-links"><a href="https://www.sciencedirect.com/science/article/abs/pii/S0031320323005861" target="_blank" rel="noopener">Paper</a><a href="https://arxiv.org/abs/2302.09765" target="_blank" rel="noopener">arXiv</a></div>
+
+            </article>
+
+    <article class="pub expandable" data-c="sel first data">
       <div class="pub-top"><span class="venue">ICCV 2023</span><span class="tag">augmentation / text-driven</span></div>
-      <h3><a href="https://textmania.github.io/" target="_blank" rel="noopener">TextManiA: Enriching Visual Feature by Text-driven Manifold Augmentation</a></h3>
-      <p class="authors"><b>Moon Ye-Bin</b>, Jisoo Kim, Hongyeob Kim, Kilho Son, Tae-Hyun Oh</p>
-      <p class="desc">TextManiA augments visual features with attribute vectors from the text embedding space, making augmentation semantically meaningful rather than random noise. It works not only with aligned text-visual spaces like CLIP, but also with embeddings from independent LLMs such as GPT-2 and BERT.</p>
-      <div class="pub-links"><a href="https://textmania.github.io/" target="_blank" rel="noopener">Project</a><a href="https://openaccess.thecvf.com/content/ICCV2023/papers/Ye-Bin_TextManiA_Enriching_Visual_Feature_by_Text-driven_Manifold_Augmentation_ICCV_2023_paper.pdf" target="_blank" rel="noopener">Paper</a></div>
-    </article>
+        <h3><a href="https://textmania.github.io/" target="_blank" rel="noopener">TextManiA: Enriching Visual Feature by Text-driven Manifold Augmentation</a><span class="chev">▾</span></h3>
+        <p class="authors"><b>Moon Ye-Bin</b>, Jisoo Kim, Hongyeob Kim, Kilho Son, Tae-Hyun Oh</p>
 
-    <article class="pub" data-c="all-extra">
+        <div class="pub-fold">
+          <p class="desc">TextManiA augments visual features with attribute vectors from the text embedding space, making augmentation semantically meaningful rather than random noise. It works not only with aligned text-visual spaces like CLIP, but also with embeddings from independent LLMs such as GPT-2 and BERT.</p>
+        </div>
+        <div class="pub-links"><a href="https://textmania.github.io/" target="_blank" rel="noopener">Project</a><a href="https://openaccess.thecvf.com/content/ICCV2023/papers/Ye-Bin_TextManiA_Enriching_Visual_Feature_by_Text-driven_Manifold_Augmentation_ICCV_2023_paper.pdf" target="_blank" rel="noopener">Paper</a></div>
+
+            </article>
+
+    <article class="pub expandable" data-c="all-extra">
       <div class="pub-top"><span class="venue">ECCV 2022</span><span class="tag">scene reconstruction / HDR</span></div>
-      <h3><a href="https://hdr-plenoxels.github.io/" target="_blank" rel="noopener">HDR-Plenoxels: Self-Calibrating High Dynamic Range Radiance Fields</a></h3>
-      <p class="authors">Kim Jun-Seong†, Kim Yu-Ji†, <b>Moon Ye-Bin</b>, Tae-Hyun Oh</p>
-      <p class="desc">HDR-Plenoxels learns the plenoptic function of a 3D scene from a joint understanding of 3D information, physical radiance fields, and the varying camera settings inherent in 2D LDR images.</p>
-      <div class="pub-links"><a href="https://hdr-plenoxels.github.io/" target="_blank" rel="noopener">Project</a><a href="https://www.ecva.net/papers/eccv_2022/papers_ECCV/papers/136920383.pdf" target="_blank" rel="noopener">Paper</a></div>
-    </article>
+        <h3><a href="https://hdr-plenoxels.github.io/" target="_blank" rel="noopener">HDR-Plenoxels: Self-Calibrating High Dynamic Range Radiance Fields</a><span class="chev">▾</span></h3>
+        <p class="authors">Kim Jun-Seong†, Kim Yu-Ji†, <b>Moon Ye-Bin</b>, Tae-Hyun Oh</p>
 
-    <article class="pub" data-c="all-extra">
+        <div class="pub-fold">
+          <p class="desc">HDR-Plenoxels learns the plenoptic function of a 3D scene from a joint understanding of 3D information, physical radiance fields, and the varying camera settings inherent in 2D LDR images.</p>
+        </div>
+        <div class="pub-links"><a href="https://hdr-plenoxels.github.io/" target="_blank" rel="noopener">Project</a><a href="https://www.ecva.net/papers/eccv_2022/papers_ECCV/papers/136920383.pdf" target="_blank" rel="noopener">Paper</a></div>
+
+            </article>
+
+    <article class="pub expandable" data-c="all-extra">
       <div class="pub-top"><span class="venue">ICLR 2022</span><span class="tag">federated learning</span></div>
-      <h3><a href="https://openreview.net/pdf?id=d71n4ftoCBy" target="_blank" rel="noopener">FedPara: Low-rank Hadamard Product Parameterization for Efficient Federated Learning</a></h3>
-      <p class="authors">Nam Hyeon-Woo, <b>Moon Ye-Bin</b>, Tae-Hyun Oh</p>
-      <p class="desc">FedPara re-parameterizes layer weights with a low-rank Hadamard product, reaching larger capacity at lower communication cost than original layers in federated learning. Its personalized variant, pFedPara, splits weights into global and local parameters for more robust results than competing methods.</p>
-      <div class="pub-links"><a href="https://openreview.net/pdf?id=d71n4ftoCBy" target="_blank" rel="noopener">Paper</a></div>
-    </article>
+        <h3><a href="https://openreview.net/pdf?id=d71n4ftoCBy" target="_blank" rel="noopener">FedPara: Low-rank Hadamard Product Parameterization for Efficient Federated Learning</a><span class="chev">▾</span></h3>
+        <p class="authors">Nam Hyeon-Woo, <b>Moon Ye-Bin</b>, Tae-Hyun Oh</p>
+
+        <div class="pub-fold">
+          <p class="desc">FedPara re-parameterizes layer weights with a low-rank Hadamard product, reaching larger capacity at lower communication cost than original layers in federated learning. Its personalized variant, pFedPara, splits weights into global and local parameters for more robust results than competing methods.</p>
+        </div>
+        <div class="pub-links"><a href="https://openreview.net/pdf?id=d71n4ftoCBy" target="_blank" rel="noopener">Paper</a></div>
+
+            </article>
   </div>
 </section>
 
@@ -498,6 +554,14 @@
     applyFilter(btn.dataset.f);
   }));
   applyFilter('sel');
+
+  // Click a card to expand/collapse its details (links still work normally)
+  document.querySelectorAll('.pub.expandable').forEach(card => {
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('a')) return; // let links behave normally
+      card.classList.toggle('open');
+    });
+  });
 </script>
 </body>
 </html>
